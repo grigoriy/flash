@@ -4,10 +4,10 @@ import com.typesafe.scalalogging.StrictLogging
 
 import scala.concurrent.{ExecutionContext, Future}
 
-class ListToCardConverter[A, B, C](listReader: ListReader[A],
-                                   dictionary: Dictionary[A, B],
-                                   cardWriter: CardWriter[B, C])
-                                  (implicit executionContext: ExecutionContext)
+class Flash[A, B, C](listReader: ListReader[A],
+                     dictionary: Dictionary[A, B],
+                     cardWriter: CardWriter[B, C])
+                    (implicit executionContext: ExecutionContext)
   extends StrictLogging {
 
   def convert(maxNumWordsToConvert: Int): Future[C] =

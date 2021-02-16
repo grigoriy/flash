@@ -24,7 +24,7 @@ object Main extends App {
       else
         config.getInt("max-num-words-to-convert")
 
-    val converter = new ListToCardConverter(
+    val converter = new Flash(
       new DynalistWordListReader(
         httpClient,
         URI.create(wordListConfig.getString("read-url")),

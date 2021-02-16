@@ -15,7 +15,7 @@ import scala.concurrent.ExecutionContext
 import scala.util.Random
 
 // scalastyle:off
-class ListToCardConverterTest extends AsyncWordSpecLike with Matchers with BeforeAndAfterAll with BeforeAndAfterEach {
+class FlashTest extends AsyncWordSpecLike with Matchers with BeforeAndAfterAll with BeforeAndAfterEach {
 
   private val externalSystemHost = "localhost"
   private val externalSystemPort = Random.between(49152, 65536)
@@ -117,7 +117,7 @@ class ListToCardConverterTest extends AsyncWordSpecLike with Matchers with Befor
 
         implicit val executionContext: ExecutionContext = ExecutionContext.Implicits.global
         val httpClient = asyncHttpClient()
-        val converter = new ListToCardConverter(
+        val converter = new Flash(
           new DynalistWordListReader(
             httpClient,
             URI.create(s"http://$externalSystemHost:$externalSystemPort$dynalistUrlPath"),
