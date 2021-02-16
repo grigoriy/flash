@@ -1,0 +1,99 @@
+{
+  "id": "watermelon",
+  "metadata": {
+    "operation": "retrieve",
+    "provider": "Oxford University Press",
+    "schema": "RetrieveEntry"
+  },
+  "results": [
+    {
+      "id": "watermelon",
+      "language": "en-gb",
+      "lexicalEntries": [
+        {
+          "entries": [
+            {
+              "pronunciations": [
+                {
+                  "audioFile": "https://audio.oxforddictionaries.com/en/mp3/watermelon_gb_1.mp3",
+                  "dialects": [
+                    "British English"
+                  ],
+                  "phoneticNotation": "IPA",
+                  "phoneticSpelling": "ˈwɔːtəmɛlən"
+                }
+              ],
+              "senses": [
+                {
+                  "definitions": [
+                    "the large fruit of a plant of the gourd family, with smooth green skin, red pulp, and watery juice."
+                  ],
+                  "domainClasses": [
+                    {
+                      "id": "plant",
+                      "text": "Plant"
+                    },
+                    {
+                      "id": "food",
+                      "text": "Food"
+                    }
+                  ],
+                  "id": "m_en_gbus1143960.008",
+                  "semanticClasses": [
+                    {
+                      "id": "fruit",
+                      "text": "Fruit"
+                    }
+                  ],
+                  "shortDefinitions": [
+                    "large fruit with smooth green skin, red pulp, and watery juice"
+                  ]
+                },
+                {
+                  "definitions": [
+                    "the African plant which yields watermelons."
+                  ],
+                  "domainClasses": [
+                    {
+                      "id": "plant",
+                      "text": "Plant"
+                    },
+                    {
+                      "id": "food",
+                      "text": "Food"
+                    }
+                  ],
+                  "id": "m_en_gbus1143960.012",
+                  "notes": [
+                    {
+                      "text": "Citrullus lanatus, family Cucurbitaceae",
+                      "type": "technicalNote"
+                    }
+                  ],
+                  "semanticClasses": [
+                    {
+                      "id": "cucurbitaceae_plant",
+                      "text": "Cucurbitaceae_Plant"
+                    }
+                  ],
+                  "shortDefinitions": [
+                    "African plant which yields watermelons"
+                  ]
+                }
+              ]
+            }
+          ],
+          "language": "en-gb",
+          "lexicalCategory": {
+            "id": "noun",
+            "text": "Noun"
+          },
+          "text": "watermelon"
+        }
+      ],
+      "type": "headword",
+      "word": "watermelon"
+    }
+  ],
+  "word": "watermelon"
+}

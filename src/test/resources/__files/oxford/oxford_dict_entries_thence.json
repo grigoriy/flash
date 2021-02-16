@@ -1,0 +1,153 @@
+{
+    "id": "thence",
+    "metadata": {
+        "operation": "retrieve",
+        "provider": "Oxford University Press",
+        "schema": "RetrieveEntry"
+    },
+    "results": [
+        {
+            "id": "thence",
+            "language": "en-gb",
+            "lexicalEntries": [
+                {
+                    "entries": [
+                        {
+                            "etymologies": [
+                                "Middle English thennes, from earlier thenne (from Old English thanon, of West Germanic origin) + -s (later respelled -ce to denote the unvoiced sound)"
+                            ],
+                            "notes": [
+                                {
+                                    "text": "The use of thence is similar to whence in that thence and from thence are both used to mean ‘from a place or source previously mentioned’. See also whence",
+                                    "type": "editorialNote"
+                                }
+                            ],
+                            "pronunciations": [
+                                {
+                                    "audioFile": "https://audio.oxforddictionaries.com/en/mp3/thence_gb_1.mp3",
+                                    "dialects": [
+                                        "British English"
+                                    ],
+                                    "phoneticNotation": "IPA",
+                                    "phoneticSpelling": "ðɛns"
+                                }
+                            ],
+                            "senses": [
+                                {
+                                    "definitions": [
+                                        "from a place or source previously mentioned"
+                                    ],
+                                    "examples": [
+                                        {
+                                            "text": "they intended to cycle on into France and thence home via Belgium"
+                                        }
+                                    ],
+                                    "id": "m_en_gbus1045110.007",
+                                    "registers": [
+                                        {
+                                            "id": "formal",
+                                            "text": "Formal"
+                                        }
+                                    ],
+                                    "shortDefinitions": [
+                                        "from place or source previously mentioned"
+                                    ],
+                                    "subsenses": [
+                                        {
+                                            "definitions": [
+                                                "as a consequence"
+                                            ],
+                                            "examples": [
+                                                {
+                                                    "text": "studying maps to assess past latitudes and thence an indication of climate"
+                                                }
+                                            ],
+                                            "id": "m_en_gbus1045110.009",
+                                            "shortDefinitions": [
+                                                "as consequence"
+                                            ],
+                                            "synonyms": [
+                                                {
+                                                    "language": "en",
+                                                    "text": "therefore"
+                                                },
+                                                {
+                                                    "language": "en",
+                                                    "text": "for that reason"
+                                                },
+                                                {
+                                                    "language": "en",
+                                                    "text": "consequently"
+                                                },
+                                                {
+                                                    "language": "en",
+                                                    "text": "so"
+                                                },
+                                                {
+                                                    "language": "en",
+                                                    "text": "as a result"
+                                                },
+                                                {
+                                                    "language": "en",
+                                                    "text": "as a consequence"
+                                                },
+                                                {
+                                                    "language": "en",
+                                                    "text": "in consequence"
+                                                },
+                                                {
+                                                    "language": "en",
+                                                    "text": "hence"
+                                                },
+                                                {
+                                                    "language": "en",
+                                                    "text": "thus"
+                                                },
+                                                {
+                                                    "language": "en",
+                                                    "text": "then"
+                                                },
+                                                {
+                                                    "language": "en",
+                                                    "text": "that being so"
+                                                },
+                                                {
+                                                    "language": "en",
+                                                    "text": "that being the case"
+                                                },
+                                                {
+                                                    "language": "en",
+                                                    "text": "on that account"
+                                                }
+                                            ],
+                                            "thesaurusLinks": [
+                                                {
+                                                    "entry_id": "accordingly",
+                                                    "sense_id": "t_en_gb0000152.002"
+                                                }
+                                            ]
+                                        }
+                                    ]
+                                }
+                            ],
+                            "variantForms": [
+                                {
+                                    "text": "from thence"
+                                }
+                            ]
+                        }
+                    ],
+                    "language": "en-gb",
+                    "lexicalCategory": {
+                        "id": "adverb",
+                        "text": "Adverb"
+                    },
+                    "text": "thence"
+                }
+            ],
+            "type": "headword",
+            "word": "thence"
+        }
+    ],
+    "word": "thence"
+}

@@ -1,0 +1,234 @@
+{
+    "id": "whence",
+    "metadata": {
+        "operation": "retrieve",
+        "provider": "Oxford University Press",
+        "schema": "RetrieveEntry"
+    },
+    "results": [
+        {
+            "id": "whence",
+            "language": "en-gb",
+            "lexicalEntries": [
+                {
+                    "entries": [
+                        {
+                            "etymologies": [
+                                "Middle English whennes, from earlier whenne (from Old English hwanon, of Germanic origin) + -s (later respelled -ce to denote the unvoiced sound)"
+                            ],
+                            "grammaticalFeatures": [
+                                {
+                                    "id": "interrogative",
+                                    "text": "Interrogative",
+                                    "type": "Referential"
+                                }
+                            ],
+                            "notes": [
+                                {
+                                    "text": "Strictly speaking, whence means ‘from what place’, as in whence did you come? Thus, the preposition from in from whence did you come? is redundant, and its use is considered incorrect by some. The use with from is very common, though, and has been used by reputable writers since the 14th century. It is now broadly accepted in standard English",
+                                    "type": "editorialNote"
+                                }
+                            ],
+                            "pronunciations": [
+                                {
+                                    "audioFile": "https://audio.oxforddictionaries.com/en/mp3/whence_gb_1.mp3",
+                                    "dialects": [
+                                        "British English"
+                                    ],
+                                    "phoneticNotation": "IPA",
+                                    "phoneticSpelling": "wɛns"
+                                }
+                            ],
+                            "senses": [
+                                {
+                                    "definitions": [
+                                        "from what place or source"
+                                    ],
+                                    "examples": [
+                                        {
+                                            "text": "whence does Parliament derive this power?"
+                                        }
+                                    ],
+                                    "id": "m_en_gbus1153320.007",
+                                    "registers": [
+                                        {
+                                            "id": "formal",
+                                            "text": "Formal"
+                                        },
+                                        {
+                                            "id": "archaic",
+                                            "text": "Archaic"
+                                        }
+                                    ],
+                                    "shortDefinitions": [
+                                        "from what place or source"
+                                    ]
+                                }
+                            ],
+                            "variantForms": [
+                                {
+                                    "text": "from whence"
+                                }
+                            ]
+                        },
+                        {
+                            "grammaticalFeatures": [
+                                {
+                                    "id": "relative",
+                                    "text": "Relative",
+                                    "type": "Referential"
+                                }
+                            ],
+                            "notes": [
+                                {
+                                    "text": "Strictly speaking, whence means ‘from what place’, as in whence did you come? Thus, the preposition from in from whence did you come? is redundant, and its use is considered incorrect by some. The use with from is very common, though, and has been used by reputable writers since the 14th century. It is now broadly accepted in standard English",
+                                    "type": "editorialNote"
+                                }
+                            ],
+                            "pronunciations": [
+                                {
+                                    "audioFile": "https://audio.oxforddictionaries.com/en/mp3/whence_gb_1.mp3",
+                                    "dialects": [
+                                        "British English"
+                                    ],
+                                    "phoneticNotation": "IPA",
+                                    "phoneticSpelling": "wɛns"
+                                }
+                            ],
+                            "senses": [
+                                {
+                                    "definitions": [
+                                        "from which; from where"
+                                    ],
+                                    "examples": [
+                                        {
+                                            "text": "the Ural mountains, whence the ore is procured"
+                                        }
+                                    ],
+                                    "id": "m_en_gbus1153320.011",
+                                    "registers": [
+                                        {
+                                            "id": "formal",
+                                            "text": "Formal"
+                                        },
+                                        {
+                                            "id": "archaic",
+                                            "text": "Archaic"
+                                        }
+                                    ],
+                                    "shortDefinitions": [
+                                        "from which"
+                                    ],
+                                    "subsenses": [
+                                        {
+                                            "definitions": [
+                                                "to the place from which"
+                                            ],
+                                            "examples": [
+                                                {
+                                                    "text": "he will be sent back whence he came"
+                                                }
+                                            ],
+                                            "id": "m_en_gbus1153320.014",
+                                            "shortDefinitions": [
+                                                "to place from which"
+                                            ]
+                                        },
+                                        {
+                                            "definitions": [
+                                                "as a consequence of which"
+                                            ],
+                                            "examples": [
+                                                {
+                                                    "text": "whence it followed that the strategies were obsolete"
+                                                }
+                                            ],
+                                            "id": "m_en_gbus1153320.015",
+                                            "shortDefinitions": [
+                                                "as consequence of which"
+                                            ],
+                                            "synonyms": [
+                                                {
+                                                    "language": "en",
+                                                    "text": "therefore"
+                                                },
+                                                {
+                                                    "language": "en",
+                                                    "text": "for that reason"
+                                                },
+                                                {
+                                                    "language": "en",
+                                                    "text": "consequently"
+                                                },
+                                                {
+                                                    "language": "en",
+                                                    "text": "so"
+                                                },
+                                                {
+                                                    "language": "en",
+                                                    "text": "as a result"
+                                                },
+                                                {
+                                                    "language": "en",
+                                                    "text": "as a consequence"
+                                                },
+                                                {
+                                                    "language": "en",
+                                                    "text": "in consequence"
+                                                },
+                                                {
+                                                    "language": "en",
+                                                    "text": "hence"
+                                                },
+                                                {
+                                                    "language": "en",
+                                                    "text": "thus"
+                                                },
+                                                {
+                                                    "language": "en",
+                                                    "text": "then"
+                                                },
+                                                {
+                                                    "language": "en",
+                                                    "text": "that being so"
+                                                },
+                                                {
+                                                    "language": "en",
+                                                    "text": "that being the case"
+                                                },
+                                                {
+                                                    "language": "en",
+                                                    "text": "on that account"
+                                                }
+                                            ],
+                                            "thesaurusLinks": [
+                                                {
+                                                    "entry_id": "accordingly",
+                                                    "sense_id": "t_en_gb0000152.002"
+                                                }
+                                            ]
+                                        }
+                                    ]
+                                }
+                            ],
+                            "variantForms": [
+                                {
+                                    "text": "from whence"
+                                }
+                            ]
+                        }
+                    ],
+                    "language": "en-gb",
+                    "lexicalCategory": {
+                        "id": "adverb",
+                        "text": "Adverb"
+                    },
+                    "text": "whence"
+                }
+            ],
+            "type": "headword",
+            "word": "whence"
+        }
+    ],
+    "word": "whence"
+}
