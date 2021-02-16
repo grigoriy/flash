@@ -15,17 +15,17 @@ java -Dconfig.file=path/to/config-file -jar <projectDir>target/scala-2.13/dynali
 ```
 Default ```max-num-words-to-convert``` is 1.
 
-### application.conf:
+### Required additional configuration
 ```
 include "application"
 
 words {
-    list-name = "???"
-    api-key = "???"
+    list-name = <name-of-the-dynalist-list-with-words>
+    api-key = <dynalist-api-key>
 }
 
 dictionary {
-    app-id = "???"
-    app-key = "???"
+    app-id = <oxford-dictionary-app-id>
+    app-key = <oxford-dictionary-app-key>
 }
 ```
