@@ -40,6 +40,7 @@ coverageFailOnMinimum := true
 coverageExcludedPackages := "com\\.galekseev\\.dynalist_to_anki\\.Main"
 
 scalastyleFailOnWarning := true
+(scalastyleConfig in Test) := baseDirectory.value / "scalastyle-test-config.xml"
 
 assemblyMergeStrategy in assembly := {
   case PathList("jackson-annotations-2.10.1.jar", xs @ _*) => MergeStrategy.last

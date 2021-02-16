@@ -14,7 +14,6 @@ import java.net.URI
 import scala.concurrent.ExecutionContext
 import scala.util.Random
 
-// scalastyle:off
 class FlashTest extends AsyncWordSpecLike with Matchers with BeforeAndAfterAll with BeforeAndAfterEach {
 
   private val externalSystemHost = "localhost"

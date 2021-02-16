@@ -15,7 +15,6 @@ import java.net.URI
 import scala.concurrent.ExecutionContext
 import scala.util.{Failure, Random, Success}
 
-// scalastyle:off
 class OxfordEnglishDictionaryTest extends AsyncWordSpecLike with Matchers with TableDrivenPropertyChecks with BeforeAndAfterEach with BeforeAndAfterAll {
 
   private val host = "localhost"

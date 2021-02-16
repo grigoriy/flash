@@ -14,7 +14,6 @@ import play.shaded.ahc.org.asynchttpclient.Dsl.asyncHttpClient
 import java.net.URI
 import scala.util.Random
 
-// scalastyle:off
 class DynalistWordListReaderTest extends AsyncWordSpecLike with Matchers with BeforeAndAfterAll with BeforeAndAfterEach {
 
   private val host = "localhost"
