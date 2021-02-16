@@ -16,7 +16,8 @@ class Flash[A, B, C](listReader: ListReader[A],
       cards <- {
         logger.info(s"Got words from Dynalist: $list")
         Future.sequence(list.take(maxNumWordsToConvert).map(word => {
-          Thread.sleep(500) // scalastyle:ignore (to satisfy the Oxford Dictionary request rate limit)
+          // satisfy the Oxford Dictionary request rate limit
+          Thread.sleep(500) // scalastyle:ignore
           logger.info(s"Translating $word")
           dictionary.translate(word)
         }))

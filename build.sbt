@@ -37,6 +37,16 @@ libraryDependencies ++= Seq(
 
 coverageMinimum := 100
 coverageFailOnMinimum := true
-coverageExcludedPackages := "com\\.galekseev\\.Main"
+coverageExcludedPackages := "com\\.galekseev\\.dynalist_to_anki\\.Main"
 
 scalastyleFailOnWarning := true
+
+assemblyMergeStrategy in assembly := {
+  case PathList("jackson-annotations-2.10.1.jar", xs @ _*) => MergeStrategy.last
+  case PathList("jackson-core-2.10.1.jar", xs @ _*) => MergeStrategy.last
+  case PathList("jackson-databind-2.10.1.jar", xs @ _*) => MergeStrategy.last
+  case PathList("jackson-datatype-jdk8-2.10.1.jar", xs @ _*) => MergeStrategy.last
+  case PathList("jackson-datatype-jsr310-2.10.1.jar", xs @ _*) => MergeStrategy.last
+  case PathList("META-INF", xs @ _*) => MergeStrategy.discard
+  case _ => MergeStrategy.first
+}

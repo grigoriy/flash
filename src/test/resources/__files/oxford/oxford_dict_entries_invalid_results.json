@@ -1,0 +1,9 @@
+{
+    "id": "invalid results",
+    "metadata": {
+        "operation": "retrieve",
+        "provider": "Oxford University Press",
+        "schema": "RetrieveEntry"
+    },
+    "results": "invalid"
+}

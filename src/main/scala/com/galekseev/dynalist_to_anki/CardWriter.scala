@@ -32,7 +32,7 @@ class AnkiWordWithDefinitionCardWriter(httpClient: AsyncHttpClient, uri: URI, ap
     ).map(response =>
       Json.parse(response.getResponseBody)
         .validate[AnkiCreateNotesResponse]
-        .getOrElse(throw new RuntimeException(s"Failed to parse the Anki response: ${response.getResponseBody}"))
+        .get
     )
   }
 }

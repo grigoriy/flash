@@ -1,10 +1,10 @@
 package com.galekseev.dynalist_to_anki
 
 import com.galekseev.dynalist_to_anki.model.{Word, WordDefinition, WordWithDefinition}
-import com.galekseev.dynalist_to_anki.oxford.{Entry, HeadwordEntry}
+import com.galekseev.dynalist_to_anki.oxford.{Entry, Headword}
 import com.typesafe.scalalogging.StrictLogging
 import play.api.libs.json._
-import play.shaded.ahc.org.asynchttpclient.AsyncHttpClient
+import play.shaded.ahc.org.asynchttpclient.{AsyncHttpClient, Response}
 
 import java.net.URI
 import scala.compat.java8.FutureConverters.toScala
@@ -22,38 +22,50 @@ class OxfordEnglishDictionary(httpClient: AsyncHttpClient,
 
   override def translate(word: Word): Future[WordWithDefinition] =
 
-    getWordDefinitionJson(s"${baseUri.toASCIIString}${word.chars}").map(json => {
-      (json \ "results").validateOpt[Iterable[HeadwordEntry]] match {
+    queryOxfordDictionary(word).map(response => {
+      val responseJson = Json.parse(response.getResponseBody)
+      response.getStatusCode match {
+        case status if status >= 200 && status < 300 =>
 
-        case JsSuccess(maybeHeadwords, _) =>
-          val wordDefinition = maybeHeadwords.map(headwordEntries => {
-            val entries = parseHeadwordEntries(headwordEntries)
-            val shortDefinitions = parseDefinitions(entries)
-            val pronunciation = parsePronunciation(entries)
-            val examples = parseExamples(entries)
-            WordDefinition(shortDefinitions, pronunciation, examples)
-          }).getOrElse(WordDefinition(Iterable.empty, None, Iterable.empty))
+          (responseJson \ "results").validateOpt[Iterable[Headword]] match {
+            case JsSuccess(maybeHeadwords, _) =>
+              WordWithDefinition(word, maybeHeadwords.map(headwords =>
+                parseWordDefinition(headwords)
+              ).getOrElse({
+                logger.warn(s"Got no headwords for '${word.chars}.")
+                WordDefinition(Iterable.empty, None, Iterable.empty)
+              }))
 
-          WordWithDefinition(word, wordDefinition)
+            case JsError(errors) =>
+              throw new RuntimeException(s"Failed to parse Oxford Dictionary response for '${word.chars}': '$errors'")
+          }
 
-        case JsError(errors) =>
-          throw new RuntimeException(s"Failed to parse Oxford Dictionary response for '${word.chars}': $errors")
+        case other =>
+          throw new RuntimeException(s"Failed to translate ${word.chars}; status: $other, message: '${
+            (responseJson \ "error").validate[String].getOrElse("???")}'")
       }
     })
 
-  private def getWordDefinitionJson(url: String): Future[JsValue] =
-    toScala(httpClient.prepareGet(url)
+  private def parseWordDefinition(headwords: Iterable[Headword]): WordDefinition = {
+    val entries = parseHeadwords(headwords)
+    val shortDefinitions = parseDefinitions(entries)
+    val pronunciation = parsePronunciation(entries)
+    val examples = parseExamples(entries)
+    WordDefinition(shortDefinitions, pronunciation, examples)
+  }
+
+  private def queryOxfordDictionary(word: Word): Future[Response] =
+    toScala(httpClient.prepareGet(s"${baseUri.toASCIIString}${word.chars}")
       .addHeader("Accept", "application/json")
       .addHeader("app_id", appId)
       .addHeader("app_key", appKey)
       .addQueryParam("strictMatch", "false")
       .execute()
       .toCompletableFuture)
-      .map(response => Json.parse(response.getResponseBody))
 
-  private def parseHeadwordEntries(headwordEntries: Iterable[HeadwordEntry]): Iterable[Entry] =
+  private def parseHeadwords(headwords: Iterable[Headword]): Iterable[Entry] =
     for {
-      headword <- headwordEntries
+      headword <- headwords
       if headword.maybeLexicalEntries.isDefined
       lexicalEntry <- headword.maybeLexicalEntries.get
       entry <- lexicalEntry.entries
