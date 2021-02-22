@@ -1,4 +1,5 @@
 # CLI app converting a Dynalist list of English words into Anki cards with definitions from the Oxford dictionary
+![Scala CI](https://github.com/grigoriy/flash/workflows/Scala%20CI/badge.svg)
 
 ### Compile, run tests and build an executable JAR:
 ```
