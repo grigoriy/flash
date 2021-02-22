@@ -58,8 +58,8 @@ class DynalistWordListReaderTest extends AsyncWordSpecLike with Matchers with Be
 
       reader.read().map(wordList => {
 
-        wordList should have size 2
-        wordList should contain theSameElementsAs Seq(Word("whence"), Word("thence"))
+        wordList should have size 3
+        wordList should contain theSameElementsAs Seq(Word("whence"), Word("thence"), Word("mosh"))
       })
     }
   }
