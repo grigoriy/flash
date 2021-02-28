@@ -1,5 +1,4 @@
 Features:
-1. fill in synonyms
 1. fill in lexical categories
 1. fill in pictures
 1. fill in domain classes

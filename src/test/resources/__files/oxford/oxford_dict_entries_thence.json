@@ -52,6 +52,16 @@
                                     "shortDefinitions": [
                                         "from place or source previously mentioned"
                                     ],
+                                    "synonyms": [
+                                        {
+                                            "lang": "en",
+                                            "text": "foo"
+                                        },
+                                        {
+                                            "lang": "en",
+                                            "text": "bar"
+                                        }
+                                    ],
                                     "subsenses": [
                                         {
                                             "definitions": [

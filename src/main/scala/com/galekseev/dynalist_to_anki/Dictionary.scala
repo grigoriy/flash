@@ -33,7 +33,7 @@ class OxfordEnglishDictionary(httpClient: AsyncHttpClient,
                 parseWordDefinition(headwords)
               ).getOrElse({
                 logger.warn(s"Got no headwords for '${word.chars}.")
-                WordDefinition(Iterable.empty, None, Iterable.empty)
+                WordDefinition(Iterable.empty, None, Iterable.empty, Iterable.empty)
               }))
 
             case JsError(errors) =>
@@ -51,7 +51,8 @@ class OxfordEnglishDictionary(httpClient: AsyncHttpClient,
     val shortDefinitions = parseDefinitions(entries)
     val pronunciation = parsePronunciation(entries)
     val examples = parseExamples(entries)
-    WordDefinition(shortDefinitions, pronunciation, examples)
+    val synonyms = parseSynonyms(entries)
+    WordDefinition(shortDefinitions, pronunciation, examples, synonyms)
   }
 
   private def queryOxfordDictionary(word: Word): Future[Response] =
@@ -91,4 +92,11 @@ class OxfordEnglishDictionary(httpClient: AsyncHttpClient,
       sense <- entry.senses
       examples <- sense.maybeExamples.getOrElse(Iterable.empty)
     } yield examples.text
+
+  private def parseSynonyms(entries: Iterable[Entry]): Iterable[String] =
+    for {
+      entry <- entries
+      sense <- entry.senses
+      synonyms <- sense.maybeSynonyms.getOrElse(Iterable.empty)
+    } yield synonyms.text
 }

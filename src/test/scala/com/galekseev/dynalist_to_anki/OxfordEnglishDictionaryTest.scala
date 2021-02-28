@@ -43,7 +43,8 @@ class OxfordEnglishDictionaryTest extends AsyncWordSpecLike with Matchers with T
           "large fruit with smooth green skin, red pulp, and watery juice",
           "African plant which yields watermelons"),
         Some("ˈwɔːtəmɛlən"),
-        Iterable.empty))
+        Iterable("I like watermelons."),
+        Iterable("big green berry")))
   )
 
   "translate" should {
@@ -126,7 +127,7 @@ class OxfordEnglishDictionaryTest extends AsyncWordSpecLike with Matchers with T
           .willReturn(aResponse().withBodyFile("oxford/oxford_dict_entries_missing_headwords.json")))
 
       dictionary.translate(word).map({ wordWithDefinition =>
-        assert(wordWithDefinition.definition === WordDefinition(Iterable.empty, None, Iterable.empty))
+        assert(wordWithDefinition.definition === WordDefinition(Iterable.empty, None, Iterable.empty, Iterable.empty))
       })
     }
 

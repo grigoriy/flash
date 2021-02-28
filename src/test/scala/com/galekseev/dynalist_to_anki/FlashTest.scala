@@ -91,7 +91,8 @@ class FlashTest extends AsyncWordSpecLike with Matchers with BeforeAndAfterAll w
              |        "Phonetic symbol" : "ðɛns",
              |        "Definition" : "from place or source previously mentioned",
              |        "Examples" : "they intended to cycle on into France and thence home via Belgium",
-             |        "Cloze" : "they intended to cycle on into France and [...] home via Belgium"
+             |        "Cloze" : "they intended to cycle on into France and [...] home via Belgium",
+             |        "Synonyms" : "foo, bar"
              |      }
              |    } ]
              |  }
@@ -112,7 +113,8 @@ class FlashTest extends AsyncWordSpecLike with Matchers with BeforeAndAfterAll w
              |        "Phonetic symbol" : "wɛns",
              |        "Definition" : "* from what place or source<br/>* from which",
              |        "Examples" : "* whence does Parliament derive this power?<br/>* the Ural mountains, whence the ore is procured",
-             |        "Cloze" : "* [...] does Parliament derive this power?<br/>* the Ural mountains, [...] the ore is procured"
+             |        "Cloze" : "* [...] does Parliament derive this power?<br/>* the Ural mountains, [...] the ore is procured",
+             |        "Synonyms" : ""
              |      }
              |    } ]
              |  }
@@ -230,7 +232,8 @@ class FlashTest extends AsyncWordSpecLike with Matchers with BeforeAndAfterAll w
                                             |        "Phonetic symbol" : "ðɛns",
                                             |        "Definition" : "from place or source previously mentioned",
                                             |        "Examples" : "they intended to cycle on into France and thence home via Belgium",
-                                            |        "Cloze" : "they intended to cycle on into France and [...] home via Belgium"
+                                            |        "Cloze" : "they intended to cycle on into France and [...] home via Belgium",
+                                            |        "Synonyms" : "foo, bar"
                                             |      }
                                             |    } ]
                                             |  }
@@ -250,7 +253,8 @@ class FlashTest extends AsyncWordSpecLike with Matchers with BeforeAndAfterAll w
                                             |        "Phonetic symbol" : "wɛns",
                                             |        "Definition" : "* from what place or source<br/>* from which",
                                             |        "Examples" : "* whence does Parliament derive this power?<br/>* the Ural mountains, whence the ore is procured",
-                                            |        "Cloze" : "* [...] does Parliament derive this power?<br/>* the Ural mountains, [...] the ore is procured"
+                                            |        "Cloze" : "* [...] does Parliament derive this power?<br/>* the Ural mountains, [...] the ore is procured",
+                                            |        "Synonyms" : ""
                                             |      }
                                             |    } ]
                                             |  }

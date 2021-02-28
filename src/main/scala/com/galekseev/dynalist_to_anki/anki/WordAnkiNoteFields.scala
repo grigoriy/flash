@@ -7,8 +7,8 @@ case class WordAnkiNoteFields(word: String,
                               phoneticSymbol: String,
                               definition: String,
                               examples: String,
-                              cloze: String
-//                              synonyms: String
+                              cloze: String,
+                              synonyms: String
 //                              audio: String,
 //                              picture: String,
                              )
@@ -19,7 +19,8 @@ object WordAnkiNoteFields {
     "Phonetic symbol" -> JsString(o.phoneticSymbol),
     "Definition" -> JsString(o.definition),
     "Examples" -> JsString(o.examples),
-    "Cloze" -> JsString(o.cloze))
+    "Cloze" -> JsString(o.cloze),
+    "Synonyms" -> JsString(o.synonyms))
 
   def apply(wordWithDefinition: WordWithDefinition): WordAnkiNoteFields = apply(
     wordWithDefinition.word.chars,
@@ -28,7 +29,9 @@ object WordAnkiNoteFields {
     formatAsList(wordWithDefinition.definition.examples).getOrElse(""),
     formatAsList(wordWithDefinition.definition.examples
       .map(_.replaceAll(wordWithDefinition.word.chars, "[...]"))
-    ).getOrElse(""))
+    ).getOrElse(""),
+    wordWithDefinition.definition.synonyms.mkString(", ")
+  )
 
   private def formatAsList[T](items: Iterable[T]): Option[String] =
     if (items.size > 1)
