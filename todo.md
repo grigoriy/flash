@@ -1,5 +1,4 @@
 Features:
-1. fill in clozes
 1. fill in synonyms
 1. fill in lexical categories
 1. fill in pictures
@@ -11,4 +10,4 @@ Features:
 Tech debt:
 1. make the destination Anki deck name and model name configurable
 1. specify the required Anki model fields in the README
-1. use clients for external systems
+1. create client libraries for external systems

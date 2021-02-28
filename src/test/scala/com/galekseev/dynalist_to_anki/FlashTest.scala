@@ -49,7 +49,7 @@ class FlashTest extends AsyncWordSpecLike with Matchers with BeforeAndAfterAll w
              |""".stripMargin
         givenThat(post(dynalistUrlPath)
           .withHeader("Content-Type", equalTo("application/json"))
-          .withRequestBody(new EqualToJsonPattern(expectedDynalistRequestBody, true,false))
+          .withRequestBody(new EqualToJsonPattern(expectedDynalistRequestBody, true, false))
           .willReturn(aResponse().withBodyFile("dynalist_words_response.json")))
 
         // Oxford dictionary mock
@@ -76,6 +76,146 @@ class FlashTest extends AsyncWordSpecLike with Matchers with BeforeAndAfterAll w
         val ankiApiVersion = 6
         val ankiDeckName = "English::My English"
         val ankiModelName = "English new words"
+        val expectedAnkiRequest_1_Body =
+          s"""
+             |{
+             |  "action" : "addNotes",
+             |  "version" : $ankiApiVersion,
+             |  "params" : {
+             |    "notes" : [
+             |    {
+             |      "deckName" : \"$ankiDeckName\",
+             |      "modelName" : \"$ankiModelName\",
+             |      "fields" : {
+             |        "Word" : "thence",
+             |        "Phonetic symbol" : "ðɛns",
+             |        "Definition" : "from place or source previously mentioned",
+             |        "Examples" : "they intended to cycle on into France and thence home via Belgium",
+             |        "Cloze" : "they intended to cycle on into France and [...] home via Belgium"
+             |      }
+             |    } ]
+             |  }
+             |}
+             |""".stripMargin
+        val expectedAnkiRequest_2_Body =
+          s"""
+             |{
+             |  "action" : "addNotes",
+             |  "version" : $ankiApiVersion,
+             |  "params" : {
+             |    "notes" : [
+             |    {
+             |      "deckName" : \"$ankiDeckName\",
+             |      "modelName" : \"$ankiModelName\",
+             |      "fields" : {
+             |        "Word" : "whence",
+             |        "Phonetic symbol" : "wɛns",
+             |        "Definition" : "* from what place or source<br/>* from which",
+             |        "Examples" : "* whence does Parliament derive this power?<br/>* the Ural mountains, whence the ore is procured",
+             |        "Cloze" : "* [...] does Parliament derive this power?<br/>* the Ural mountains, [...] the ore is procured"
+             |      }
+             |    } ]
+             |  }
+             |}
+             |""".stripMargin
+        val expectedAnkiResponse_1_Body =
+          s"""
+             |{
+             |    "result": [1496198395707, null],
+             |    "error": null
+             |}
+             |""".stripMargin
+        val expectedAnkiResponse_2_Body =
+          s"""
+             |{
+             |    "result": [1496198395709, null],
+             |    "error": null
+             |}
+             |""".stripMargin
+        givenThat(post("/")
+          .withRequestBody(new EqualToJsonPattern(expectedAnkiRequest_1_Body, true, false))
+          .willReturn(aResponse().withBody(expectedAnkiResponse_1_Body)))
+        givenThat(post("/")
+          .withRequestBody(new EqualToJsonPattern(expectedAnkiRequest_2_Body, true, false))
+          .willReturn(aResponse().withBody(expectedAnkiResponse_2_Body)))
+
+        implicit val executionContext: ExecutionContext = ExecutionContext.Implicits.global
+        val httpClient = asyncHttpClient()
+        val converter = new Flash(
+          new DynalistWordListReader(
+            httpClient,
+            URI.create(s"http://$externalSystemHost:$externalSystemPort$dynalistUrlPath"),
+            dynalistListName,
+            dynalistApiKey),
+          new OxfordEnglishDictionary(httpClient,
+            URI.create(s"http://$externalSystemHost:$externalSystemPort$dictionaryUrlPath"),
+            dictionaryAppId,
+            dictionaryAppKey),
+          new AnkiWordWithDefinitionCardWriter(
+            httpClient,
+            URI.create(s"http://$externalSystemHost:$externalSystemPort"),
+            ankiApiVersion
+          )
+        )
+        val maxNumWordsToConvert = 2
+
+        converter.convert(maxNumWordsToConvert).map(response => {
+
+          assert(response.result.size === maxNumWordsToConvert)
+          assert(response.error.isEmpty)
+        })
+      }
+    }
+
+    "given a 3 words, 2 of which are not in Oxford Dictionary" should {
+      "add 1 word into Anki" in {
+        // Dynalist mock
+        val dynalistApiKey = "dynalistApiKey"
+        val dynalistListName = "5kDjKRflsQ64Rk8-0olenOkk"
+        val dynalistUrlPath = "/api/v1/doc/read"
+        val expectedDynalistRequestBody =
+          s"""
+             |{
+             |  "token": "$dynalistApiKey",
+             |  "file_id": "$dynalistListName"
+             |}
+             |""".stripMargin
+        givenThat(post(dynalistUrlPath)
+          .withHeader("Content-Type", equalTo("application/json"))
+          .withRequestBody(new EqualToJsonPattern(expectedDynalistRequestBody, true,false))
+          .willReturn(aResponse().withBodyFile("dynalist_words_response.json")))
+
+        // Oxford dictionary mock
+        val dictionaryUrlPath = "/api/v2/entries/en-gb/"
+        val dictionaryAppId = "14398df8"
+        val dictionaryAppKey = "afc1b8d90cc428904eabb4271978ba41"
+
+        givenThat(
+          get(s"${dictionaryUrlPath}whence?strictMatch=false")
+            .withHeader("Accept", equalTo("application/json"))
+            .withHeader("app_id", equalTo(dictionaryAppId))
+            .withHeader("app_key", equalTo(dictionaryAppKey))
+            .withQueryParam("strictMatch", equalTo("false"))
+            .willReturn(aResponse().withBodyFile("oxford/oxford_dict_entries_whence.json")))
+        givenThat(
+          get(s"${dictionaryUrlPath}thence?strictMatch=false")
+            .withHeader("Accept", equalTo("application/json"))
+            .withHeader("app_id", equalTo(dictionaryAppId))
+            .withHeader("app_key", equalTo(dictionaryAppKey))
+            .withQueryParam("strictMatch", equalTo("false"))
+            .willReturn(aResponse().withStatus(404).withBodyFile("oxford/oxford_dict_entries_lkwefl34.json")))
+        givenThat(
+          get(s"${dictionaryUrlPath}mosh?strictMatch=false")
+            .withHeader("Accept", equalTo("application/json"))
+            .withHeader("app_id", equalTo(dictionaryAppId))
+            .withHeader("app_key", equalTo(dictionaryAppKey))
+            .withQueryParam("strictMatch", equalTo("false"))
+            .willReturn(aResponse().withStatus(404).withBodyFile("oxford/oxford_dict_entries_lkwefl34.json")))
+
+        // Anki mock
+        val ankiApiVersion = 6
+        val ankiDeckName = "English::My English"
+        val ankiModelName = "English new words"
         val expectedAnkiRequest_1_Body = s"""
                                             |{
                                             |  "action" : "addNotes",
@@ -89,7 +229,8 @@ class FlashTest extends AsyncWordSpecLike with Matchers with BeforeAndAfterAll w
                                             |        "Word" : "thence",
                                             |        "Phonetic symbol" : "ðɛns",
                                             |        "Definition" : "from place or source previously mentioned",
-                                            |        "Extra information" : "they intended to cycle on into France and thence home via Belgium"
+                                            |        "Examples" : "they intended to cycle on into France and thence home via Belgium",
+                                            |        "Cloze" : "they intended to cycle on into France and [...] home via Belgium"
                                             |      }
                                             |    } ]
                                             |  }
@@ -108,7 +249,8 @@ class FlashTest extends AsyncWordSpecLike with Matchers with BeforeAndAfterAll w
                                             |        "Word" : "whence",
                                             |        "Phonetic symbol" : "wɛns",
                                             |        "Definition" : "* from what place or source<br/>* from which",
-                                            |        "Extra information" : "* whence does Parliament derive this power?<br/>* the Ural mountains, whence the ore is procured"
+                                            |        "Examples" : "* whence does Parliament derive this power?<br/>* the Ural mountains, whence the ore is procured",
+                                            |        "Cloze" : "* [...] does Parliament derive this power?<br/>* the Ural mountains, [...] the ore is procured"
                                             |      }
                                             |    } ]
                                             |  }
@@ -151,148 +293,14 @@ class FlashTest extends AsyncWordSpecLike with Matchers with BeforeAndAfterAll w
             ankiApiVersion
           )
         )
-        val maxNumWordsToConvert = 2
 
-        converter.convert(maxNumWordsToConvert).map(response => {
+        converter.convert(3).map(response => {
 
-          assert(response.result.size === maxNumWordsToConvert)
-          assert(response.error.isEmpty)
+          assert(response.result.size === 1)
+          assert(response.error.isDefined)
+          assert(response.error.get.contains("thence"))
+          assert(response.error.get.contains("mosh"))
         })
-      }
-
-      "given a 3 words, 2 of which are not in Oxford Dictionary" should {
-        "add 1 word into Anki" in {
-          // Dynalist mock
-          val dynalistApiKey = "dynalistApiKey"
-          val dynalistListName = "5kDjKRflsQ64Rk8-0olenOkk"
-          val dynalistUrlPath = "/api/v1/doc/read"
-          val expectedDynalistRequestBody =
-            s"""
-               |{
-               |  "token": "$dynalistApiKey",
-               |  "file_id": "$dynalistListName"
-               |}
-               |""".stripMargin
-          givenThat(post(dynalistUrlPath)
-            .withHeader("Content-Type", equalTo("application/json"))
-            .withRequestBody(new EqualToJsonPattern(expectedDynalistRequestBody, true,false))
-            .willReturn(aResponse().withBodyFile("dynalist_words_response.json")))
-
-          // Oxford dictionary mock
-          val dictionaryUrlPath = "/api/v2/entries/en-gb/"
-          val dictionaryAppId = "14398df8"
-          val dictionaryAppKey = "afc1b8d90cc428904eabb4271978ba41"
-
-          givenThat(
-            get(s"${dictionaryUrlPath}whence?strictMatch=false")
-              .withHeader("Accept", equalTo("application/json"))
-              .withHeader("app_id", equalTo(dictionaryAppId))
-              .withHeader("app_key", equalTo(dictionaryAppKey))
-              .withQueryParam("strictMatch", equalTo("false"))
-              .willReturn(aResponse().withBodyFile("oxford/oxford_dict_entries_whence.json")))
-          givenThat(
-            get(s"${dictionaryUrlPath}thence?strictMatch=false")
-              .withHeader("Accept", equalTo("application/json"))
-              .withHeader("app_id", equalTo(dictionaryAppId))
-              .withHeader("app_key", equalTo(dictionaryAppKey))
-              .withQueryParam("strictMatch", equalTo("false"))
-              .willReturn(aResponse().withStatus(404).withBodyFile("oxford/oxford_dict_entries_lkwefl34.json")))
-          givenThat(
-            get(s"${dictionaryUrlPath}mosh?strictMatch=false")
-              .withHeader("Accept", equalTo("application/json"))
-              .withHeader("app_id", equalTo(dictionaryAppId))
-              .withHeader("app_key", equalTo(dictionaryAppKey))
-              .withQueryParam("strictMatch", equalTo("false"))
-              .willReturn(aResponse().withStatus(404).withBodyFile("oxford/oxford_dict_entries_lkwefl34.json")))
-
-          // Anki mock
-          val ankiApiVersion = 6
-          val ankiDeckName = "English::My English"
-          val ankiModelName = "English new words"
-          val expectedAnkiRequest_1_Body = s"""
-                                           |{
-                                           |  "action" : "addNotes",
-                                           |  "version" : $ankiApiVersion,
-                                           |  "params" : {
-                                           |    "notes" : [
-                                           |    {
-                                           |      "deckName" : \"$ankiDeckName\",
-                                           |      "modelName" : \"$ankiModelName\",
-                                           |      "fields" : {
-                                           |        "Word" : "thence",
-                                           |        "Phonetic symbol" : "ðɛns",
-                                           |        "Definition" : "from place or source previously mentioned",
-                                           |        "Extra information" : "they intended to cycle on into France and thence home via Belgium"
-                                           |      }
-                                           |    } ]
-                                           |  }
-                                           |}
-                                           |""".stripMargin
-          val expectedAnkiRequest_2_Body = s"""
-                                              |{
-                                              |  "action" : "addNotes",
-                                              |  "version" : $ankiApiVersion,
-                                              |  "params" : {
-                                              |    "notes" : [
-                                              |    {
-                                              |      "deckName" : \"$ankiDeckName\",
-                                              |      "modelName" : \"$ankiModelName\",
-                                              |      "fields" : {
-                                              |        "Word" : "whence",
-                                              |        "Phonetic symbol" : "wɛns",
-                                              |        "Definition" : "* from what place or source<br/>* from which",
-                                              |        "Extra information" : "* whence does Parliament derive this power?<br/>* the Ural mountains, whence the ore is procured"
-                                              |      }
-                                              |    } ]
-                                              |  }
-                                              |}
-                                              |""".stripMargin
-          val expectedAnkiResponse_1_Body = s"""
-                                            |{
-                                            |    "result": [1496198395707, null],
-                                            |    "error": null
-                                            |}
-                                            |""".stripMargin
-          val expectedAnkiResponse_2_Body = s"""
-                                            |{
-                                            |    "result": [1496198395709, null],
-                                            |    "error": null
-                                            |}
-                                            |""".stripMargin
-          givenThat(post("/")
-            .withRequestBody(new EqualToJsonPattern(expectedAnkiRequest_1_Body, true, false))
-            .willReturn(aResponse().withBody(expectedAnkiResponse_1_Body)))
-          givenThat(post("/")
-            .withRequestBody(new EqualToJsonPattern(expectedAnkiRequest_2_Body, true, false))
-            .willReturn(aResponse().withBody(expectedAnkiResponse_2_Body)))
-
-          implicit val executionContext: ExecutionContext = ExecutionContext.Implicits.global
-          val httpClient = asyncHttpClient()
-          val converter = new Flash(
-            new DynalistWordListReader(
-              httpClient,
-              URI.create(s"http://$externalSystemHost:$externalSystemPort$dynalistUrlPath"),
-              dynalistListName,
-              dynalistApiKey),
-            new OxfordEnglishDictionary(httpClient,
-              URI.create(s"http://$externalSystemHost:$externalSystemPort$dictionaryUrlPath"),
-              dictionaryAppId,
-              dictionaryAppKey),
-            new AnkiWordWithDefinitionCardWriter(
-              httpClient,
-              URI.create(s"http://$externalSystemHost:$externalSystemPort"),
-              ankiApiVersion
-            )
-          )
-
-          converter.convert(3).map(response => {
-
-            assert(response.result.size === 1)
-            assert(response.error.isDefined)
-            assert(response.error.get.contains("thence"))
-            assert(response.error.get.contains("mosh"))
-          })
-        }
       }
     }
   }

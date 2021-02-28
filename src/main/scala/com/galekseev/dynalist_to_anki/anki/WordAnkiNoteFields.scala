@@ -6,25 +6,29 @@ import play.api.libs.json.{JsString, Json, Writes}
 case class WordAnkiNoteFields(word: String,
                               phoneticSymbol: String,
                               definition: String,
-                              examples: String
+                              examples: String,
+                              cloze: String
 //                              synonyms: String
-//                              cloze: String,
 //                              audio: String,
 //                              picture: String,
                              )
 
 object WordAnkiNoteFields {
   implicit val writes: Writes[WordAnkiNoteFields] = (o: WordAnkiNoteFields) => Json.obj(
-      "Word" -> JsString(o.word),
-      "Phonetic symbol" -> JsString(o.phoneticSymbol),
-      "Definition" -> JsString(o.definition),
-      "Extra information" -> JsString(o.examples))
+    "Word" -> JsString(o.word),
+    "Phonetic symbol" -> JsString(o.phoneticSymbol),
+    "Definition" -> JsString(o.definition),
+    "Examples" -> JsString(o.examples),
+    "Cloze" -> JsString(o.cloze))
 
   def apply(wordWithDefinition: WordWithDefinition): WordAnkiNoteFields = apply(
-      wordWithDefinition.word.chars,
-      wordWithDefinition.definition.pronunciation.getOrElse(""),
-      formatAsList(wordWithDefinition.definition.meaning).getOrElse("???"),
-      formatAsList(wordWithDefinition.definition.examples).getOrElse(""))
+    wordWithDefinition.word.chars,
+    wordWithDefinition.definition.pronunciation.getOrElse(""),
+    formatAsList(wordWithDefinition.definition.meaning).getOrElse("???"),
+    formatAsList(wordWithDefinition.definition.examples).getOrElse(""),
+    formatAsList(wordWithDefinition.definition.examples
+      .map(_.replaceAll(wordWithDefinition.word.chars, "[...]"))
+    ).getOrElse(""))
 
   private def formatAsList[T](items: Iterable[T]): Option[String] =
     if (items.size > 1)
