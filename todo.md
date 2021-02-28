@@ -5,8 +5,9 @@ Features:
 1. mark the word as added in Dynalist (return a list of added words and pass it to a marking service?)
 1. import words from a CSV file
 1. use the $word from an Oxford reply (can differ from the requested word)?
+1. parse subsenses from the Oxford Dictionary definitions?
 
 Tech debt:
 1. make the destination Anki deck name and model name configurable
 1. specify the required Anki model fields in the README
-1. create client libraries for external systems
+1. create client libraries for external systems (Dynalist, Oxford Dictionary, Anki) as separate projects
