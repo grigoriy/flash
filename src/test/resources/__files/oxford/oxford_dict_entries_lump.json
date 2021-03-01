@@ -1,0 +1,516 @@
+{
+    "id": "lump",
+    "metadata": {
+        "operation": "retrieve",
+        "provider": "Oxford University Press",
+        "schema": "RetrieveEntry"
+    },
+    "results": [
+        {
+            "id": "lump",
+            "language": "en-gb",
+            "lexicalEntries": [
+                {
+                    "entries": [
+                        {
+                            "etymologies": [
+                                "Middle English: perhaps from a Germanic base meaning ‘shapeless piece’; compare with Danish lump ‘lump’, Norwegian and Swedish dialect lump ‘block, log’, and Dutch lomp ‘rag’"
+                            ],
+                            "homographNumber": "100",
+                            "pronunciations": [
+                                {
+                                    "audioFile": "https://audio.oxforddictionaries.com/en/mp3/lump_gb_1.mp3",
+                                    "dialects": [
+                                        "British English"
+                                    ],
+                                    "phoneticNotation": "IPA",
+                                    "phoneticSpelling": "lʌmp"
+                                }
+                            ],
+                            "senses": [
+                                {
+                                    "constructions": [
+                                        {
+                                            "text": "lump of"
+                                        }
+                                    ],
+                                    "definitions": [
+                                        "a compact mass of a substance, especially one without a definite or regular shape"
+                                    ],
+                                    "domainClasses": [
+                                        {
+                                            "id": "foo",
+                                            "text": "Foo"
+                                        }
+                                    ],
+                                    "examples": [
+                                        {
+                                            "text": "there was a lump of ice floating in the milk"
+                                        }
+                                    ],
+                                    "id": "m_en_gbus0600530.006",
+                                    "semanticClasses": [
+                                        {
+                                            "id": "lump",
+                                            "text": "Lump"
+                                        }
+                                    ],
+                                    "shortDefinitions": [
+                                        "compact mass of substance"
+                                    ],
+                                    "subsenses": [
+                                        {
+                                            "definitions": [
+                                                "a swelling under the skin, especially one caused by injury or disease"
+                                            ],
+                                            "examples": [
+                                                {
+                                                    "text": "he was unhurt apart from a huge lump on his head"
+                                                }
+                                            ],
+                                            "id": "m_en_gbus0600530.009",
+                                            "semanticClasses": [
+                                                {
+                                                    "id": "damaged_tissue",
+                                                    "text": "Damaged_Tissue"
+                                                }
+                                            ],
+                                            "shortDefinitions": [
+                                                "swelling under skin"
+                                            ],
+                                            "synonyms": [
+                                                {
+                                                    "language": "en",
+                                                    "text": "swelling"
+                                                },
+                                                {
+                                                    "language": "en",
+                                                    "text": "bump"
+                                                },
+                                                {
+                                                    "language": "en",
+                                                    "text": "bulge"
+                                                },
+                                                {
+                                                    "language": "en",
+                                                    "text": "protuberance"
+                                                },
+                                                {
+                                                    "language": "en",
+                                                    "text": "protrusion"
+                                                },
+                                                {
+                                                    "language": "en",
+                                                    "text": "growth"
+                                                },
+                                                {
+                                                    "language": "en",
+                                                    "text": "outgrowth"
+                                                },
+                                                {
+                                                    "language": "en",
+                                                    "text": "carbuncle"
+                                                },
+                                                {
+                                                    "language": "en",
+                                                    "text": "hump"
+                                                },
+                                                {
+                                                    "language": "en",
+                                                    "text": "tumour"
+                                                },
+                                                {
+                                                    "language": "en",
+                                                    "text": "wen"
+                                                },
+                                                {
+                                                    "language": "en",
+                                                    "text": "boil"
+                                                },
+                                                {
+                                                    "language": "en",
+                                                    "text": "blister"
+                                                },
+                                                {
+                                                    "language": "en",
+                                                    "text": "wart"
+                                                },
+                                                {
+                                                    "language": "en",
+                                                    "text": "corn"
+                                                },
+                                                {
+                                                    "language": "en",
+                                                    "text": "eruption"
+                                                },
+                                                {
+                                                    "language": "en",
+                                                    "text": "node"
+                                                },
+                                                {
+                                                    "language": "en",
+                                                    "text": "contusion"
+                                                }
+                                            ],
+                                            "thesaurusLinks": [
+                                                {
+                                                    "entry_id": "lump",
+                                                    "sense_id": "t_en_gb0008988.002"
+                                                }
+                                            ]
+                                        },
+                                        {
+                                            "definitions": [
+                                                "a small cube of sugar."
+                                            ],
+                                            "domainClasses": [
+                                                {
+                                                    "id": "sweet",
+                                                    "text": "Sweet"
+                                                }
+                                            ],
+                                            "id": "m_en_gbus0600530.010",
+                                            "semanticClasses": [
+                                                {
+                                                    "id": "sugar",
+                                                    "text": "Sugar"
+                                                }
+                                            ],
+                                            "shortDefinitions": [
+                                                "small cube of sugar"
+                                            ]
+                                        },
+                                        {
+                                            "definitions": [
+                                                "a heavy, ungainly, or slow-witted person"
+                                            ],
+                                            "examples": [
+                                                {
+                                                    "text": "I won't stand a chance against a big lump like you"
+                                                }
+                                            ],
+                                            "id": "m_en_gbus0600530.011",
+                                            "registers": [
+                                                {
+                                                    "id": "informal",
+                                                    "text": "Informal"
+                                                },
+                                                {
+                                                    "id": "derogatory",
+                                                    "text": "Derogatory"
+                                                }
+                                            ],
+                                            "semanticClasses": [
+                                                {
+                                                    "id": "disliked_person",
+                                                    "text": "Disliked_Person"
+                                                }
+                                            ],
+                                            "shortDefinitions": [
+                                                "ungainly or slow-witted person"
+                                            ]
+                                        }
+                                    ],
+                                    "synonyms": [
+                                        {
+                                            "language": "en",
+                                            "text": "chunk"
+                                        },
+                                        {
+                                            "language": "en",
+                                            "text": "wedge"
+                                        },
+                                        {
+                                            "language": "en",
+                                            "text": "hunk"
+                                        },
+                                        {
+                                            "language": "en",
+                                            "text": "piece"
+                                        }
+                                    ],
+                                    "thesaurusLinks": [
+                                        {
+                                            "entry_id": "lump",
+                                            "sense_id": "t_en_gb0008988.001"
+                                        }
+                                    ]
+                                },
+                                {
+                                    "definitions": [
+                                        "the state of being self-employed and paid without deduction of tax, especially in the building industry"
+                                    ],
+                                    "examples": [
+                                        {
+                                            "text": "‘Working?’ ‘Only on the lump, here and there’"
+                                        },
+                                        {
+                                            "notes": [
+                                                {
+                                                    "text": "as modifier",
+                                                    "type": "grammaticalNote"
+                                                }
+                                            ],
+                                            "text": "lump labour"
+                                        }
+                                    ],
+                                    "id": "m_en_gbus0600530.013",
+                                    "notes": [
+                                        {
+                                            "text": "\"the lump\"",
+                                            "type": "wordFormNote"
+                                        }
+                                    ],
+                                    "regions": [
+                                        {
+                                            "id": "british",
+                                            "text": "British"
+                                        }
+                                    ],
+                                    "registers": [
+                                        {
+                                            "id": "informal",
+                                            "text": "Informal"
+                                        }
+                                    ],
+                                    "semanticClasses": [
+                                        {
+                                            "id": "state",
+                                            "text": "State"
+                                        }
+                                    ],
+                                    "shortDefinitions": [
+                                        "self-employment in building industry"
+                                    ]
+                                }
+                            ]
+                        }
+                    ],
+                    "language": "en-gb",
+                    "lexicalCategory": {
+                        "id": "noun",
+                        "text": "Noun"
+                    },
+                    "phrases": [
+                        {
+                            "id": "a_lump_in_the_throat",
+                            "text": "a lump in the throat"
+                        },
+                        {
+                            "id": "take_one%27s_lumps",
+                            "text": "take one's lumps"
+                        }
+                    ],
+                    "text": "lump"
+                },
+                {
+                    "entries": [
+                        {
+                            "homographNumber": "101",
+                            "pronunciations": [
+                                {
+                                    "audioFile": "https://audio.oxforddictionaries.com/en/mp3/lump_gb_1.mp3",
+                                    "dialects": [
+                                        "British English"
+                                    ],
+                                    "phoneticNotation": "IPA",
+                                    "phoneticSpelling": "lʌmp"
+                                }
+                            ],
+                            "senses": [
+                                {
+                                    "definitions": [
+                                        "put in an indiscriminate mass or group; treat as alike without regard for particulars"
+                                    ],
+                                    "examples": [
+                                        {
+                                            "text": "Hong Kong and Bangkok tend to be lumped together in holiday brochures"
+                                        },
+                                        {
+                                            "text": "Nigel didn't like being lumped in with prisoners"
+                                        }
+                                    ],
+                                    "id": "m_en_gbus0600530.024",
+                                    "notes": [
+                                        {
+                                            "text": "with object and adverbial",
+                                            "type": "grammaticalNote"
+                                        }
+                                    ],
+                                    "shortDefinitions": [
+                                        "put in indiscriminate mass"
+                                    ],
+                                    "subsenses": [
+                                        {
+                                            "definitions": [
+                                                "(in taxonomy) classify plants or animals in relatively inclusive groups, disregarding minor variations"
+                                            ],
+                                            "examples": [
+                                                {
+                                                    "text": "many arguments are based on one side lumping and the other splitting"
+                                                }
+                                            ],
+                                            "id": "m_en_gbus0600530.030",
+                                            "notes": [
+                                                {
+                                                    "text": "no object",
+                                                    "type": "grammaticalNote"
+                                                }
+                                            ],
+                                            "shortDefinitions": [
+                                                "classify in relatively inclusive groups"
+                                            ]
+                                        }
+                                    ],
+                                    "synonyms": [
+                                        {
+                                            "language": "en",
+                                            "text": "combine"
+                                        },
+                                        {
+                                            "language": "en",
+                                            "text": "put"
+                                        },
+                                        {
+                                            "language": "en",
+                                            "text": "group"
+                                        }
+                                    ],
+                                    "thesaurusLinks": [
+                                        {
+                                            "entry_id": "lump",
+                                            "sense_id": "t_en_gb0008988.003"
+                                        }
+                                    ]
+                                },
+                                {
+                                    "definitions": [
+                                        "carry (a heavy load) somewhere with difficulty"
+                                    ],
+                                    "examples": [
+                                        {
+                                            "text": "the coalman had to lump one-hundredweight sacks right through the house"
+                                        }
+                                    ],
+                                    "id": "m_en_gbus0600530.032",
+                                    "notes": [
+                                        {
+                                            "text": "with object and adverbial of direction",
+                                            "type": "grammaticalNote"
+                                        }
+                                    ],
+                                    "regions": [
+                                        {
+                                            "id": "british",
+                                            "text": "British"
+                                        }
+                                    ],
+                                    "shortDefinitions": [
+                                        "carry heavy load with difficulty"
+                                    ]
+                                }
+                            ]
+                        }
+                    ],
+                    "language": "en-gb",
+                    "lexicalCategory": {
+                        "id": "verb",
+                        "text": "Verb"
+                    },
+                    "phrases": [
+                        {
+                            "id": "a_lump_in_the_throat",
+                            "text": "a lump in the throat"
+                        },
+                        {
+                            "id": "take_one%27s_lumps",
+                            "text": "take one's lumps"
+                        }
+                    ],
+                    "text": "lump"
+                }
+            ],
+            "type": "headword",
+            "word": "lump"
+        },
+        {
+            "id": "lump",
+            "language": "en-gb",
+            "lexicalEntries": [
+                {
+                    "entries": [
+                        {
+                            "etymologies": [
+                                "late 16th century (in the sense ‘look sulky’): symbolic of displeasure; compare with words such as dump and grump. The current sense dates from the early 19th century"
+                            ],
+                            "homographNumber": "200",
+                            "notes": [
+                                {
+                                    "text": "\"lump it\"",
+                                    "type": "wordFormNote"
+                                }
+                            ],
+                            "pronunciations": [
+                                {
+                                    "audioFile": "https://audio.oxforddictionaries.com/en/mp3/lump_gb_1.mp3",
+                                    "dialects": [
+                                        "British English"
+                                    ],
+                                    "phoneticNotation": "IPA",
+                                    "phoneticSpelling": "lʌmp"
+                                }
+                            ],
+                            "senses": [
+                                {
+                                    "definitions": [
+                                        "accept or tolerate a disagreeable situation whether one likes it or not"
+                                    ],
+                                    "examples": [
+                                        {
+                                            "text": "you can like it or lump it but I've got to work"
+                                        }
+                                    ],
+                                    "id": "m_en_gbus0600540.005",
+                                    "registers": [
+                                        {
+                                            "id": "informal",
+                                            "text": "Informal"
+                                        }
+                                    ],
+                                    "shortDefinitions": [
+                                        "accept or tolerate disagreeable situation whether one likes it or not"
+                                    ],
+                                    "synonyms": [
+                                        {
+                                            "language": "en",
+                                            "text": "put up with it"
+                                        },
+                                        {
+                                            "language": "en",
+                                            "text": "bear it"
+                                        }
+                                    ],
+                                    "thesaurusLinks": [
+                                        {
+                                            "entry_id": "lump_it",
+                                            "sense_id": "t_en_gb0008989.001"
+                                        }
+                                    ]
+                                }
+                            ]
+                        }
+                    ],
+                    "language": "en-gb",
+                    "lexicalCategory": {
+                        "id": "verb",
+                        "text": "Verb"
+                    },
+                    "text": "lump"
+                }
+            ],
+            "type": "headword",
+            "word": "lump"
+        }
+    ],
+    "word": "lump"
+}

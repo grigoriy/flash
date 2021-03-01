@@ -1,5 +1,6 @@
 package com.galekseev.dynalist_to_anki
 
+import com.galekseev.dynalist_to_anki.FlashTest._
 import com.github.tomakehurst.wiremock.WireMockServer
 import com.github.tomakehurst.wiremock.client.WireMock
 import com.github.tomakehurst.wiremock.client.WireMock._
@@ -72,54 +73,6 @@ class FlashTest extends AsyncWordSpecLike with Matchers with BeforeAndAfterAll w
             .withQueryParam("strictMatch", equalTo("false"))
             .willReturn(aResponse().withBodyFile("oxford/oxford_dict_entries_thence.json")))
 
-        // Anki mock
-        val ankiApiVersion = 6
-        val ankiDeckName = "English::My English"
-        val ankiModelName = "English new words"
-        val expectedAnkiRequest_1_Body =
-          s"""
-             |{
-             |  "action" : "addNotes",
-             |  "version" : $ankiApiVersion,
-             |  "params" : {
-             |    "notes" : [
-             |    {
-             |      "deckName" : \"$ankiDeckName\",
-             |      "modelName" : \"$ankiModelName\",
-             |      "fields" : {
-             |        "Word" : "thence",
-             |        "Phonetic symbol" : "ðɛns",
-             |        "Definition" : "from place or source previously mentioned",
-             |        "Examples" : "they intended to cycle on into France and thence home via Belgium",
-             |        "Cloze" : "they intended to cycle on into France and [...] home via Belgium",
-             |        "Synonyms" : "foo, bar"
-             |      }
-             |    } ]
-             |  }
-             |}
-             |""".stripMargin
-        val expectedAnkiRequest_2_Body =
-          s"""
-             |{
-             |  "action" : "addNotes",
-             |  "version" : $ankiApiVersion,
-             |  "params" : {
-             |    "notes" : [
-             |    {
-             |      "deckName" : \"$ankiDeckName\",
-             |      "modelName" : \"$ankiModelName\",
-             |      "fields" : {
-             |        "Word" : "whence",
-             |        "Phonetic symbol" : "wɛns",
-             |        "Definition" : "* from what place or source<br/>* from which",
-             |        "Examples" : "* whence does Parliament derive this power?<br/>* the Ural mountains, whence the ore is procured",
-             |        "Cloze" : "* [...] does Parliament derive this power?<br/>* the Ural mountains, [...] the ore is procured",
-             |        "Synonyms" : ""
-             |      }
-             |    } ]
-             |  }
-             |}
-             |""".stripMargin
         val expectedAnkiResponse_1_Body =
           s"""
              |{
@@ -135,10 +88,10 @@ class FlashTest extends AsyncWordSpecLike with Matchers with BeforeAndAfterAll w
              |}
              |""".stripMargin
         givenThat(post("/")
-          .withRequestBody(new EqualToJsonPattern(expectedAnkiRequest_1_Body, true, false))
+          .withRequestBody(new EqualToJsonPattern(ThenceAnkiRequestBody, true, false))
           .willReturn(aResponse().withBody(expectedAnkiResponse_1_Body)))
         givenThat(post("/")
-          .withRequestBody(new EqualToJsonPattern(expectedAnkiRequest_2_Body, true, false))
+          .withRequestBody(new EqualToJsonPattern(WhenceAnkiRequestBody, true, false))
           .willReturn(aResponse().withBody(expectedAnkiResponse_2_Body)))
 
         implicit val executionContext: ExecutionContext = ExecutionContext.Implicits.global
@@ -156,7 +109,7 @@ class FlashTest extends AsyncWordSpecLike with Matchers with BeforeAndAfterAll w
           new AnkiWordWithDefinitionCardWriter(
             httpClient,
             URI.create(s"http://$externalSystemHost:$externalSystemPort"),
-            ankiApiVersion
+            AnkiApiVersion
           )
         )
         val maxNumWordsToConvert = 2
@@ -214,52 +167,6 @@ class FlashTest extends AsyncWordSpecLike with Matchers with BeforeAndAfterAll w
             .withQueryParam("strictMatch", equalTo("false"))
             .willReturn(aResponse().withStatus(404).withBodyFile("oxford/oxford_dict_entries_lkwefl34.json")))
 
-        // Anki mock
-        val ankiApiVersion = 6
-        val ankiDeckName = "English::My English"
-        val ankiModelName = "English new words"
-        val expectedAnkiRequest_1_Body = s"""
-                                            |{
-                                            |  "action" : "addNotes",
-                                            |  "version" : $ankiApiVersion,
-                                            |  "params" : {
-                                            |    "notes" : [
-                                            |    {
-                                            |      "deckName" : \"$ankiDeckName\",
-                                            |      "modelName" : \"$ankiModelName\",
-                                            |      "fields" : {
-                                            |        "Word" : "thence",
-                                            |        "Phonetic symbol" : "ðɛns",
-                                            |        "Definition" : "from place or source previously mentioned",
-                                            |        "Examples" : "they intended to cycle on into France and thence home via Belgium",
-                                            |        "Cloze" : "they intended to cycle on into France and [...] home via Belgium",
-                                            |        "Synonyms" : "foo, bar"
-                                            |      }
-                                            |    } ]
-                                            |  }
-                                            |}
-                                            |""".stripMargin
-        val expectedAnkiRequest_2_Body = s"""
-                                            |{
-                                            |  "action" : "addNotes",
-                                            |  "version" : $ankiApiVersion,
-                                            |  "params" : {
-                                            |    "notes" : [
-                                            |    {
-                                            |      "deckName" : \"$ankiDeckName\",
-                                            |      "modelName" : \"$ankiModelName\",
-                                            |      "fields" : {
-                                            |        "Word" : "whence",
-                                            |        "Phonetic symbol" : "wɛns",
-                                            |        "Definition" : "* from what place or source<br/>* from which",
-                                            |        "Examples" : "* whence does Parliament derive this power?<br/>* the Ural mountains, whence the ore is procured",
-                                            |        "Cloze" : "* [...] does Parliament derive this power?<br/>* the Ural mountains, [...] the ore is procured",
-                                            |        "Synonyms" : ""
-                                            |      }
-                                            |    } ]
-                                            |  }
-                                            |}
-                                            |""".stripMargin
         val expectedAnkiResponse_1_Body = s"""
                                              |{
                                              |    "result": [1496198395707, null],
@@ -273,10 +180,10 @@ class FlashTest extends AsyncWordSpecLike with Matchers with BeforeAndAfterAll w
                                              |}
                                              |""".stripMargin
         givenThat(post("/")
-          .withRequestBody(new EqualToJsonPattern(expectedAnkiRequest_1_Body, true, false))
+          .withRequestBody(new EqualToJsonPattern(ThenceAnkiRequestBody, true, false))
           .willReturn(aResponse().withBody(expectedAnkiResponse_1_Body)))
         givenThat(post("/")
-          .withRequestBody(new EqualToJsonPattern(expectedAnkiRequest_2_Body, true, false))
+          .withRequestBody(new EqualToJsonPattern(WhenceAnkiRequestBody, true, false))
           .willReturn(aResponse().withBody(expectedAnkiResponse_2_Body)))
 
         implicit val executionContext: ExecutionContext = ExecutionContext.Implicits.global
@@ -294,7 +201,7 @@ class FlashTest extends AsyncWordSpecLike with Matchers with BeforeAndAfterAll w
           new AnkiWordWithDefinitionCardWriter(
             httpClient,
             URI.create(s"http://$externalSystemHost:$externalSystemPort"),
-            ankiApiVersion
+            AnkiApiVersion
           )
         )
 
@@ -308,4 +215,65 @@ class FlashTest extends AsyncWordSpecLike with Matchers with BeforeAndAfterAll w
       }
     }
   }
+}
+
+object FlashTest {
+  private val AnkiApiVersion = 6
+  private val AnkiDeckName = "English::My English"
+  private val AnkiModelName = "English new words"
+  private val WhenceAnkiRequestBody = s"""
+                                         |{
+                                         |  "action" : "addNotes",
+                                         |  "version" : $AnkiApiVersion,
+                                         |  "params" : {
+                                         |    "notes" : [
+                                         |    {
+                                         |      "deckName" : \"$AnkiDeckName\",
+                                         |      "modelName" : \"$AnkiModelName\",
+                                         |      "fields" : {
+                                         |        "Word" : "whence (adverb; interrogative; formal, archaic)",
+                                         |        "Phonetic symbol" : "wɛns",
+                                         |        "Definition" : "from what place or source",
+                                         |        "Examples" : "Whence does Parliament derive this power?",
+                                         |        "Cloze" : "[...] does Parliament derive this power?",
+                                         |        "Synonyms" : ""
+                                         |      }
+                                         |    },
+                                         |    {
+                                         |      "deckName" : \"$AnkiDeckName\",
+                                         |      "modelName" : \"$AnkiModelName\",
+                                         |      "fields" : {
+                                         |        "Word" : "whence (adverb; relative; formal, archaic)",
+                                         |        "Phonetic symbol" : "wɛns",
+                                         |        "Definition" : "* from which; from where<br/>* to the place from which<br/>* as a consequence of which",
+                                         |        "Examples" : "the Ural mountains, whence the ore is procured",
+                                         |        "Cloze" : "the Ural mountains, [...] the ore is procured",
+                                         |        "Synonyms" : ""
+                                         |      }
+                                         |    }]
+                                         |  }
+                                         |}
+                                         |""".stripMargin
+
+  private val ThenceAnkiRequestBody = s"""
+                                         |{
+                                         |  "action" : "addNotes",
+                                         |  "version" : $AnkiApiVersion,
+                                         |  "params" : {
+                                         |    "notes" : [
+                                         |    {
+                                         |      "deckName" : \"$AnkiDeckName\",
+                                         |      "modelName" : \"$AnkiModelName\",
+                                         |      "fields" : {
+                                         |        "Word" : "thence (adverb; formal)",
+                                         |        "Phonetic symbol" : "ðɛns",
+                                         |        "Definition" : "* from a place or source previously mentioned<br/>* as a consequence",
+                                         |        "Examples" : "they intended to cycle on into France and thence home via Belgium",
+                                         |        "Cloze" : "they intended to cycle on into France and [...] home via Belgium",
+                                         |        "Synonyms" : "foo, bar"
+                                         |      }
+                                         |    } ]
+                                         |  }
+                                         |}
+                                         |""".stripMargin
 }

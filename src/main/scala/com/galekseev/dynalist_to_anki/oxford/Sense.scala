@@ -2,17 +2,19 @@ package com.galekseev.dynalist_to_anki.oxford
 
 import play.api.libs.json.{JsValue, Reads}
 
-case class Sense(shortDefinitions: Iterable[String],
+case class Sense(definitions: Iterable[String],
                  maybeDomainClasses: Option[Iterable[DomainClass]],
                  maybeExamples: Option[Iterable[Example]],
-                 maybeSynonyms: Option[Iterable[Synonym]])
+                 maybeSynonyms: Option[Iterable[Synonym]],
+                 maybeRegisters: Option[Iterable[Register]])
 
 object Sense {
   implicit val reads: Reads[Sense] = (json: JsValue) =>
     for {
-      shortDefinitions <- (json \ "shortDefinitions").validate[Iterable[String]]
-      maybeDomainClasses <- (json \ "domainClassses").validateOpt[Iterable[DomainClass]]
+      definitions <- (json \ "definitions").validate[Iterable[String]]
+      maybeDomainClasses <- (json \ "domainClasses").validateOpt[Iterable[DomainClass]]
       maybeExamples <- (json \ "examples").validateOpt[Iterable[Example]]
       maybeSynonyms <- (json \ "synonyms").validateOpt[Iterable[Synonym]]
-    } yield Sense(shortDefinitions, maybeDomainClasses, maybeExamples, maybeSynonyms)
+      maybeRegisters <- (json \ "registers").validateOpt[Iterable[Register]]
+    } yield Sense(definitions, maybeDomainClasses, maybeExamples, maybeSynonyms, maybeRegisters)
 }

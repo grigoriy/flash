@@ -39,6 +39,8 @@ coverageMinimum := 100
 coverageFailOnMinimum := true
 coverageExcludedPackages := "com\\.galekseev\\.dynalist_to_anki\\.Main"
 
+parallelExecution in Test := false
+
 scalastyleFailOnWarning := true
 (scalastyleConfig in Test) := baseDirectory.value / "scalastyle-test-config.xml"
 

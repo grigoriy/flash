@@ -1,7 +1,7 @@
 package com.galekseev.dynalist_to_anki
 
 import com.galekseev.dynalist_to_anki.anki.{AnkiCreateNotesResponse, WordAnkiNote, WordAnkiNoteFields, WordAnkiNotesRequest}
-import com.galekseev.dynalist_to_anki.model.WordWithDefinition
+import com.galekseev.dynalist_to_anki.model.WordWithDefinitions
 import com.typesafe.scalalogging.StrictLogging
 import play.api.libs.json.Json
 import play.api.libs.json.Json.toJson
@@ -17,10 +17,14 @@ trait CardWriter[A, B] {
 
 class AnkiWordWithDefinitionCardWriter(httpClient: AsyncHttpClient, uri: URI, apiVersion: Int)
                                       (implicit executionContext: ExecutionContext)
-  extends CardWriter[WordWithDefinition, AnkiCreateNotesResponse] with StrictLogging {
+  extends CardWriter[WordWithDefinitions, AnkiCreateNotesResponse] with StrictLogging {
 
-  override def write(cards: Seq[WordWithDefinition]): Future[AnkiCreateNotesResponse] = {
-    val notesWriteRequest = WordAnkiNotesRequest(cards.map(card => WordAnkiNote(WordAnkiNoteFields(card))), apiVersion)
+  override def write(cards: Seq[WordWithDefinitions]): Future[AnkiCreateNotesResponse] = {
+    val notes = for {
+      card <- cards
+      definition <- card.definitions
+    } yield WordAnkiNote(WordAnkiNoteFields(card.word, definition))
+    val notesWriteRequest = WordAnkiNotesRequest(notes, apiVersion)
     val requestBody = Json.stringify(toJson(notesWriteRequest))
     logger.info(s"Writing notes into Anki: $requestBody")
 

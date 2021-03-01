@@ -1,6 +1,6 @@
 package com.galekseev.dynalist_to_anki.anki
 
-import com.galekseev.dynalist_to_anki.model.WordWithDefinition
+import com.galekseev.dynalist_to_anki.model.{Word, WordDefinition}
 import play.api.libs.json.{JsString, Json, Writes}
 
 case class WordAnkiNoteFields(word: String,
@@ -22,20 +22,40 @@ object WordAnkiNoteFields {
     "Cloze" -> JsString(o.cloze),
     "Synonyms" -> JsString(o.synonyms))
 
-  def apply(wordWithDefinition: WordWithDefinition): WordAnkiNoteFields = apply(
-    wordWithDefinition.word.chars,
-    wordWithDefinition.definition.pronunciation.getOrElse(""),
-    formatAsList(wordWithDefinition.definition.meaning).getOrElse("???"),
-    formatAsList(wordWithDefinition.definition.examples).getOrElse(""),
-    formatAsList(wordWithDefinition.definition.examples
-      .map(_.replaceAll(wordWithDefinition.word.chars, "[...]"))
-    ).getOrElse(""),
-    wordWithDefinition.definition.synonyms.mkString(", ")
-  )
+  def apply(word: Word, definition: WordDefinition): WordAnkiNoteFields = {
+    val domainClasses = formatAsAppendix(definition.domainClasses)
+    val grammaticalFeatures = formatAsAppendix(definition.grammaticalFeatures)
+    val registers = formatAsAppendix(definition.registers)
+    val pronunciation = definition.pronunciation.getOrElse("")
+    val definitions = formatAsList(definition.meanings ++ definition.submeanings)
+      .map(_.replaceAll(toFirstCharCaseInsensitiveRegex(word.chars), "[_]"))
+      .getOrElse("???")
+    val examples = formatAsList(definition.examples).getOrElse("")
+    val clozeDeletions = examples.replaceAll(toFirstCharCaseInsensitiveRegex(word.chars), "[...]")
+    val synonyms = definition.synonyms.mkString(", ")
+
+    apply(
+      s"${word.chars} (${definition.lexicalCategory}$grammaticalFeatures$domainClasses$registers)",
+      pronunciation,
+      definitions,
+      examples,
+      clozeDeletions,
+      synonyms
+    )
+  }
+
+  private def formatAsAppendix(s: Iterable[Any]): String =
+    if (s.nonEmpty)
+      s"; ${s.mkString(", ")}"
+    else
+      ""
 
   private def formatAsList[T](items: Iterable[T]): Option[String] =
     if (items.size > 1)
       Some(items.map(str => s"* $str").mkString("<br/>"))
     else
       items.headOption.map(_.toString)
+
+  private def toFirstCharCaseInsensitiveRegex(s: String): String =
+    s"[${s.head.toLower}${s.head.toUpper}]${s.substring(1)}"
 }
